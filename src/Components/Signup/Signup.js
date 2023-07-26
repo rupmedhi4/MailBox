@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './Signup.css';
-
+import { auth } from '../../Firebase';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 
 export default function Signup() {
   const [email, setEmail] = useState('');
@@ -8,7 +9,18 @@ export default function Signup() {
   const [confirmPassword, setConfirmPassword] = useState('');
     
   const signupHandler = async (e) => {
-   
+    e.preventDefault();
+
+    if (password !== confirmPassword) {
+      alert("Passwords don't match");
+      return;
+    }
+    try {
+      await createUserWithEmailAndPassword(auth, email, password);
+      alert('Account created successfully');
+    } catch (err) {
+      alert(err.message);
+    }
   };
 
   return (
@@ -51,16 +63,15 @@ export default function Signup() {
           />
         </div>
 
-        <buttons type="submit" className="btn-signup" >
+        <button type="submit" className="btn-signup">
           Sign Up
-        </buttons>
+        </button>
       </form>
 
-      <div>
-        <button className="btn">
-          Have an account? Login
-        </button>
-      </div>
+      <button className="btn">
+        Have an account? Login
+      </button>
+
     </div>
   );
 }
