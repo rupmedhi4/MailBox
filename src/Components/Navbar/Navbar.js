@@ -1,27 +1,39 @@
 
 import React from 'react'
 import './Navbar.css'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 export default function Navbar() {
 
     const navigate = useNavigate()
-    const loginhandler = ()=>{
-    navigate("/login")
+    const loginhandler = () => {
+        navigate("/login")
     }
-    const signuphandler = ()=>{
-    navigate("/signup")
+    const signuphandler = () => {
+        navigate("/signup")
     }
     return (
-        <nav className='container'>
-            <ul className='ul'>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">About us</a></li>
-                <li><a href="#">Contact us</a></li>
-             
+        <nav className='container_nav'>
+            <ul className='ul_nav'>
+                <li>
+                    <Link to={"/home"} href="#"   style={{color:"white", textDecoration:"none"}}>Home</Link>
+
+                </li>
+                <li>
+                    <Link to={"/about"} href="#"  style={{color:"white", textDecoration:"none"}}>About us</Link>
+
+                </li>
+                <li>
+                    <Link to={"/contactus"} href="#"  style={{color:"white", textDecoration:"none"}}>Contact us</Link>
+
+                </li>
+               
             </ul>
-             <button onClick={signuphandler}>signup</button>
-              <button onClick={loginhandler}>login</button>
+            <ul className="cartBtn_main" >
+                <button onClick={loginhandler}  style={{color:"white", background:"black",  cursor: "pointer"}} className="cartBtn" >Login</button>
+                <button onClick={signuphandler} style={{color:"white", background:"black",  cursor: "pointer"}} className="cartBtn"  >Signup</button>
+            </ul>
+
         </nav>
     )
 }

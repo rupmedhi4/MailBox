@@ -1,3 +1,4 @@
+import Home from "./Components/Home/Home";
 import Navbar from "./Components/Navbar/Navbar";
 import Signup from "./Components/Signup/Signup";
 import Login from "./Login/Login";
@@ -13,6 +14,7 @@ function App() {
 
         <Routes>
           <Route path="/signup" element={<Signup/>} />
+          <Route path="/home" element={<Home/>} />
           <Route path="/login" element={<Login />} />
         </Routes>
       </BrowserRouter>
