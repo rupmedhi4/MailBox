@@ -27,6 +27,10 @@ export default function Navbar() {
                     <Link to={"/contactus"} href="#"  style={{color:"white", textDecoration:"none"}}>Contact us</Link>
 
                 </li>
+                <li>
+                    <Link to={"/email"} href="#"  style={{color:"white", textDecoration:"none"}}>email composer</Link>
+
+                </li>
                
             </ul>
             <ul className="cartBtn_main" >
