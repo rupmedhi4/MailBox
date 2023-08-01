@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import JoditEditor from "jodit-react";
 import EmailComposer from "./Components/EmailComposer/EmailComposer";
 import Home from "./Components/Home/Home";
@@ -7,42 +7,56 @@ import Signup from "./Components/Signup/Signup";
 import Login from "./Login/Login";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "./Firebase";
-import { useDispatch, useSelector } from "react-redux";
-import { setUser } from "./Components/Redux/Slices/StoreEmail";
-import { UseSelector } from "react-redux/es/hooks/useSelector";
+import { auth, db } from "./Firebase";
+import { useDispatch } from "react-redux";
+import { doc, onSnapshot } from "firebase/firestore";
+import { SetEmailData } from "./Components/Redux/Slices/StoreEmail";
 
 function App() {
-
-  const user = useSelector(state => state.StoreEmail.user);
   const dispatch = useDispatch();
-
-  const currUser = auth.currentUser;
+  const [user1, setUser1] = useState(null);
+  const user = auth.currentUser
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user===null) {
-        dispatch(setUser(user))
-       
+      if (user) {
+        setUser1(user);
+          console.log(user1); // Move this line here to log the user1 state after it's set
       } else {
-       console.log(user)
+        setUser1(null)
       }
     });
-    unsubscribe();
-  },[])
-
   
+    return () => unsubscribe();
+  }, [user]);
+
+
+  useEffect(()=>{
+    if (user1) {
+      const docRef = doc(db, "sendEmail", user.uid);
+      const unsubscribe = onSnapshot(docRef, (docSnap) => {
+        if (docSnap.exists()) {
+          dispatch(SetEmailData(docSnap.data()));
+          console.log("doc have")
+        } else {
+          console.log("no doc");
+        }
+      });
+      return () => unsubscribe(); 
+    } else {
+      console.log("not user");
+    }
+  }, [dispatch, user])
 
   return (
     <div>
       <BrowserRouter>
         <Navbar />
-
         <Routes>
           <Route path="/signup" element={<Signup />} />
           <Route path="/home" element={<Home />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/email" element={<EmailComposer />} />
+          <Route path="/email" element={<EmailComposer user1={user1} />} />
         </Routes>
       </BrowserRouter>
     </div>

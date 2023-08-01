@@ -56,12 +56,12 @@ const StoreEmail = createSlice({
     reducers: {
         setUser: (state, action) => {
             const currUser = action.payload;
-            console.log(currUser);
+            state.user = currUser
           },
           SetEmailData: (state, action) => {
-            const email = action.payload;
-            state.sendEmail = [...email];
-            console.log(state.sendEmail);
+            // const email = action.payload;
+            // state.sendEmail = [...email];
+            // console.log(state.sendEmail);
           }
         
     },

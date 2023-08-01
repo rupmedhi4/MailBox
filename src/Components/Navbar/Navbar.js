@@ -2,8 +2,12 @@
 import React from 'react'
 import './Navbar.css'
 import { Link, useNavigate } from 'react-router-dom'
+import { auth } from '../../Firebase';
+import { signOut } from 'firebase/auth';
 
 export default function Navbar() {
+    const user = auth.currentUser;
+
 
     const navigate = useNavigate()
     const loginhandler = () => {
@@ -12,6 +16,16 @@ export default function Navbar() {
     const signuphandler = () => {
         navigate("/signup")
     }
+    const logoutHandler = async ()=>{
+        try{
+           await signOut(auth)
+           console.log(user)
+           alert("signout")
+        }catch(err){
+          alert(err)
+        }
+    
+      }
     return (
         <nav className='container_nav'>
             <ul className='ul_nav'>
@@ -36,6 +50,7 @@ export default function Navbar() {
             <ul className="cartBtn_main" >
                 <button onClick={loginhandler}  style={{color:"white", background:"black",  cursor: "pointer"}} className="cartBtn" >Login</button>
                 <button onClick={signuphandler} style={{color:"white", background:"black",  cursor: "pointer"}} className="cartBtn"  >Signup</button>
+                <button onClick={logoutHandler} style={{color:"white", background:"black",  cursor: "pointer"}} className="cartBtn"  >logout</button>
             </ul>
 
         </nav>

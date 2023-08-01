@@ -1,36 +1,35 @@
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
-import { SetEmailData, sendEmailData } from '../Redux/Slices/StoreEmail';
-import { doc, onSnapshot } from 'firebase/firestore';
-import { db } from '../../Firebase';
+import React, { useEffect } from 'react';
+import { doc, onSnapshot } from "firebase/firestore";
+import { useDispatch } from 'react-redux';
+import { auth, db } from '../../Firebase';
+import { SetEmailData } from '../Redux/Slices/StoreEmail';
 
-export default function SendEmail() {
+export default function SendEmail({user1}) {
+  const dispatch = useDispatch();
 
-    const user = useSelector(state => state.StoreEmail.user);
-    const sendEmail = useSelector(state => state.StoreEmail.sendEmail);
-    const dispatch = useDispatch();
+const user = auth.currentUser
 
-
-    useEffect(()=>{
-        if (user) {
-          const docRef = doc(db, "sendEmail", user.uid);
-          const unsubscribe = onSnapshot(docRef, (docSnap) => {
-            if (docSnap.exists()) {
-              dispatch(SetEmailData(docSnap.data()))
-            } else {
-              console.log("no doc");
-            }
-          });
-          return () => unsubscribe(); // Cleanup the listener when the component unmounts
-    
+  useEffect(() => {
+    if (user1) {
+      const docRef = doc(db, "sendEmail", user.uid);
+      const unsubscribe = onSnapshot(docRef, (docSnap) => {
+        if (docSnap.exists()) {
+          dispatch(SetEmailData(docSnap.data()));
+          console.log("doc have")
         } else {
-          console.log("not user");
+          console.log("no doc");
         }
-      }, [user])
+      });
+      return () => unsubscribe(); // Cleanup the listener when the component unmounts
+    } else {
+      console.log("not user");
+    }
+    console.log(user);
+  }, [dispatch, user]); // Use 'user' as a dependency
 
   return (
     <div>
-   <h2>{SendEmail}</h2>
+      <h2>{user ? user.email : "No user data"}</h2>
     </div>
-  )
+  );
 }
