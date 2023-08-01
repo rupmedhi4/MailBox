@@ -9,7 +9,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./Firebase";
 import { useDispatch, useSelector } from "react-redux";
-import { addEmail } from "./Components/Redux/Slices/StoreEmail";
+import { setUser } from "./Components/Redux/Slices/StoreEmail";
 import { UseSelector } from "react-redux/es/hooks/useSelector";
 
 function App() {
@@ -17,17 +17,21 @@ function App() {
   const user = useSelector(state => state.StoreEmail.user);
   const dispatch = useDispatch();
 
+  const currUser = auth.currentUser;
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        dispatch(addEmail(user))
+      if (user===null) {
+        dispatch(setUser(user))
        
       } else {
-        dispatch(addEmail(user))
+       console.log(user)
       }
     });
     unsubscribe();
   },[])
+
+  
 
   return (
     <div>
