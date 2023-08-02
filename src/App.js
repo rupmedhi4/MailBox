@@ -8,7 +8,7 @@ import Login from "./Login/Login";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth, db } from "./Firebase";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { doc, onSnapshot } from "firebase/firestore";
 import { SetEmailData } from "./Components/Redux/Slices/StoreEmail";
 
@@ -16,12 +16,15 @@ function App() {
   const dispatch = useDispatch();
   const [user1, setUser1] = useState(null);
   const user = auth.currentUser
+  const emails = useSelector(state => state.StoreEmail.SendEmail);
+
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser1(user);
           console.log(user1); // Move this line here to log the user1 state after it's set
+          console.log(emails); // Move this line here to log the user1 state after it's set
       } else {
         setUser1(null)
       }
@@ -56,7 +59,7 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/home" element={<Home />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/email" element={<EmailComposer user1={user1} />} />
+          <Route path="/email" element={<EmailComposer  />} />
         </Routes>
       </BrowserRouter>
     </div>

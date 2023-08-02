@@ -6,7 +6,7 @@ export default function EmailComposer({user1}) {
   return (
     <div>
       <TextEditor/>
-      <SendEmail user1={user1}/>
+      <SendEmail />
     </div>
   )
 }

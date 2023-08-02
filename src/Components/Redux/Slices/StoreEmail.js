@@ -51,7 +51,7 @@ const StoreEmail = createSlice({
     name: "storeEmailSlices",
     initialState: {
         user:null,
-        sendEmail :null
+        sendEmail :[]
     },
     reducers: {
         setUser: (state, action) => {
