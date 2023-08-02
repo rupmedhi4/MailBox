@@ -36,8 +36,8 @@ function App() {
       const docRef = doc(db, "sendEmail", user.uid);
       const unsubscribe = onSnapshot(docRef, (docSnap) => {
         if (docSnap.exists()) {
-          dispatch(SetEmailData(docSnap.data()));
-          console.log("doc have")
+          dispatch(SetEmailData(docSnap.data().emails));
+          console.log(docSnap.data().emails)
         } else {
           console.log("no doc");
         }
