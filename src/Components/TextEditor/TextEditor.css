@@ -1,3 +1,4 @@
+
 .input_span {
   display: flex;
  justify-content: space-evenly;
@@ -24,6 +25,11 @@
   margin-left: 0.5rem;
   border: none; /* Remove the border for the normal state */
   outline: none; 
+  
+}
+.textarea{
+  height: 5rem;
+  margin-left: 0%;
 }
 .input_text:focus {
   border: none; /* Remove the border when the input is in focus (selected) */
@@ -34,7 +40,7 @@
   text-align: end;
 }
 .email-compose{
-  margin-left: 2rem;
+ 
   margin-right: 2rem;
 }
 

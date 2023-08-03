@@ -1,9 +1,15 @@
 import React from 'react'
+import SendEmail from '../SendEmail/SendEmail'
+import TextEditor from '../TextEditor/TextEditor'
+import './Modal.css'
 
 export default function Modal() {
   return (
-    <div>
-      <h1>hi my name is modal</h1>
-    </div>
+    <>
+      <div className='heading-email'>
+      <span >New Message</span>
+      </div>
+      <TextEditor/>
+    </>
   )
 }

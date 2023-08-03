@@ -1,47 +1,8 @@
-/* Styles for the modal overlay */
-.modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  /* Styles for the modal content */
-  .modal-content {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 4px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-    position: relative;
-    max-width: 400px;
-    width: 100%;
-  }
-  
-  /* Styles for the close button */
-  .close {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 20px;
-    cursor: pointer;
-    color: #888;
-  }
-  
-  .close:hover {
-    color: #000;
-  }
-  
-  /* Styles for modal content elements */
-  h2 {
-    margin-top: 0;
-  }
-  
-  p {
-    margin-bottom: 0;
-  }
-  
+.heading-email{
+  background: yellow;
+  padding: 1rem;
+  margin: -1.2rem -1.2rem  1rem ;
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+
+}

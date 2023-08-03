@@ -20,7 +20,6 @@ export default function App() {
       to,
       subject,
       emailBody
-    
     }
      
    
@@ -41,10 +40,11 @@ export default function App() {
       </div>
 
       <div className="input_span_body">
-        <input type="text" placeholder="Write your email" className="input_text" onChange={(e) => { setEmailBody(e.target.value) }} value={emailBody} />
+        <textarea type="text" placeholder="Write your email" className="input_text textarea" onChange={(e) => { setEmailBody(e.target.value) }} value={emailBody} />
       </div>
 
-      <JoditEditor value={content} tabIndex={1} onChange={newContent => setContent(newContent)} />
+     
+      <JoditEditor value={content} tabIndex={1} onChange={newContent => setContent(newContent)} className="texteditor"/>
 
       <button className="send-button" onClick={handleSendEmail}> Send </button>
 

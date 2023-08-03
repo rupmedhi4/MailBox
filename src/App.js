@@ -59,7 +59,6 @@ function App() {
     <div>
       <BrowserRouter>
         <Navbar />
-        <Modal/>
         <Routes>
           <Route path="/signup" element={<Signup />} />
           <Route path="/home" element={<Home />} />
