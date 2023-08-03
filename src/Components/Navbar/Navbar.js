@@ -4,9 +4,14 @@ import './Navbar.css'
 import { Link, useNavigate } from 'react-router-dom'
 import { auth } from '../../Firebase';
 import { signOut } from 'firebase/auth';
+import { useDispatch, useSelector } from 'react-redux';
+import { setPortal } from '../Redux/Slices/StoreEmail';
 
 export default function Navbar() {
     const user = auth.currentUser;
+    const portal = useSelector(state => state.StoreEmail.portal);
+    const dispatch = useDispatch();
+
 
 
     const navigate = useNavigate()
@@ -26,6 +31,10 @@ export default function Navbar() {
         }
     
       }
+    const modalHandler =  ()=>{
+       dispatch(setPortal())   
+    
+      }
     return (
         <nav className='container_nav'>
             <ul className='ul_nav'>
@@ -34,15 +43,15 @@ export default function Navbar() {
 
                 </li>
                 <li>
-                    <Link to={"/about"} href="#"  style={{color:"white", textDecoration:"none"}}>About us</Link>
+                    <Link to={"/receivedemails"} href="#"  style={{color:"white", textDecoration:"none"}}>Received Email</Link>
 
                 </li>
                 <li>
-                    <Link to={"/contactus"} href="#"  style={{color:"white", textDecoration:"none"}}>Contact us</Link>
+                    <Link to={"/sendbox"} href="#"  style={{color:"white", textDecoration:"none"}}>Send Box</Link>
 
                 </li>
                 <li>
-                    <Link to={"/email"} href="#"  style={{color:"white", textDecoration:"none"}}>email composer</Link>
+                    <Link to={"/emailcompose"} href="#"  style={{color:"white", textDecoration:"none"}} onClick={modalHandler}>email composer</Link>
 
                 </li>
                

@@ -51,7 +51,8 @@ const StoreEmail = createSlice({
     name: "storeEmailSlices",
     initialState: {
         user:null,
-        sendEmail :[]
+        sendEmail :[],
+        portal : false
     },
     reducers: {
         setUser: (state, action) => {
@@ -62,6 +63,9 @@ const StoreEmail = createSlice({
 
             state.sendEmail = action.payload;
             console.log(state.sendEmail);
+          },
+          setPortal: (state, action)=> {
+            state.portal = !state.portal;
           }
         
     },
@@ -80,5 +84,5 @@ const StoreEmail = createSlice({
     },
 });
 
-export const { setUser,SetEmailData } = StoreEmail.actions;
+export const { setUser,SetEmailData, setPortal } = StoreEmail.actions;
 export default StoreEmail.reducer;

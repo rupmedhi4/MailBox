@@ -10,13 +10,17 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth, db } from "./Firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { doc, onSnapshot } from "firebase/firestore";
+import Modal from "./Components/Modal/Modal";
 import { SetEmailData } from "./Components/Redux/Slices/StoreEmail";
+import Portal from "./Components/Modal/Portal";
+
 
 function App() {
   const dispatch = useDispatch();
   const [user1, setUser1] = useState(null);
   const user = auth.currentUser
   const emails = useSelector(state => state.StoreEmail.SendEmail);
+  const portal = useSelector(state => state.StoreEmail.portal);
 
 
   useEffect(() => {
@@ -55,9 +59,11 @@ function App() {
     <div>
       <BrowserRouter>
         <Navbar />
+        <Modal/>
         <Routes>
           <Route path="/signup" element={<Signup />} />
           <Route path="/home" element={<Home />} />
+          <Route path="/emailcompose" element={portal ? <Portal/> : null} />
           <Route path="/login" element={<Login />} />
           <Route path="/email" element={<EmailComposer  />} />
         </Routes>
