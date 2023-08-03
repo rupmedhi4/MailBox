@@ -4,5 +4,8 @@
   margin: -1.2rem -1.2rem  1rem ;
   border-top-left-radius: 0.5rem;
   border-top-right-radius: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+ 
 
 }

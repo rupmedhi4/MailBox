@@ -64,7 +64,8 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/emailcompose" element={portal ? <Portal/> : null} />
           <Route path="/login" element={<Login />} />
-          <Route path="/email" element={<EmailComposer  />} />
+          <Route path="/email" element={portal ? <EmailComposer/> : null} />
+
         </Routes>
       </BrowserRouter>
     </div>
