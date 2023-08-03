@@ -50,10 +50,7 @@ export default function Navbar() {
                     <Link to={"/sendbox"} href="#"  style={{color:"white", textDecoration:"none"}}>Send Box</Link>
 
                 </li>
-                <li>
-                    <Link to={"/emailcompose"} href="#"  style={{color:"white", textDecoration:"none"}} onClick={modalHandler}>email composer</Link>
-
-                </li>
+              
                
             </ul>
             <ul className="cartBtn_main" >

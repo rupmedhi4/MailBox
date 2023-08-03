@@ -13,6 +13,7 @@ import { doc, onSnapshot } from "firebase/firestore";
 import Modal from "./Components/Modal/Modal";
 import { SetEmailData } from "./Components/Redux/Slices/StoreEmail";
 import Portal from "./Components/Modal/Portal";
+import Sidebar from "./Components/Sidebar/Sidebar";
 
 
 function App() {
@@ -59,6 +60,7 @@ function App() {
     <div>
       <BrowserRouter>
         <Navbar />
+        <Sidebar/>
         <Routes>
           <Route path="/signup" element={<Signup />} />
           <Route path="/home" element={<Home />} />
