@@ -27,6 +27,9 @@ export default function Sidebar() {
         <div className='mail-inbox'  style={{cursor:"pointer"}}>
              <span className='inbox'>Send Mail</span>
         </div>
+        <div className='mail-inbox'  style={{cursor:"pointer"}}>
+             <span className='inbox'>Unread</span>
+        </div>
        
        
     </div>

@@ -8,13 +8,13 @@ export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
  const navigate = useNavigate();
-  const loginHandler = async (e) => {
-   
+
+  const loginHandler = async (e) => {  
     e.preventDefault();
     try {
       await signInWithEmailAndPassword(auth, email, password);
       alert('Login Successful');
-      navigate("/home")
+      // navigate("/")
     } catch (err) {
       alert(err)
     }

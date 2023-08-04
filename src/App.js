@@ -14,11 +14,14 @@ import Modal from "./Components/Modal/Modal";
 import { SetEmailData } from "./Components/Redux/Slices/StoreEmail";
 import Portal from "./Components/Modal/Portal";
 import Sidebar from "./Components/Sidebar/Sidebar";
+import PrivateRoutes from "./Components/PrivateRoutes";
 
 
 function App() {
   const dispatch = useDispatch();
   const [user1, setUser1] = useState(null);
+ 
+
   const user = auth.currentUser
   const emails = useSelector(state => state.StoreEmail.SendEmail);
   const portal = useSelector(state => state.StoreEmail.portal);
@@ -60,13 +63,15 @@ function App() {
     <div>
       <BrowserRouter>
         <Navbar />
-        <Sidebar/>
+        <Sidebar/> 
         <Routes>
           <Route path="/signup" element={<Signup />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/emailcompose" element={portal ? <Portal/> : null} />
+          <Route path="/" element={<Home/>} />
           <Route path="/login" element={<Login />} />
-          <Route path="/email" element={portal ? <EmailComposer/> : null} />
+          <Route path="/emailcompose" element={portal ? <PrivateRoutes component={Portal} alt={Login} /> :null}/>
+          <Route path="/email" element={portal ? <PrivateRoutes component={EmailComposer} alt={Login} /> : null}/>
+
+
 
         </Routes>
       </BrowserRouter>

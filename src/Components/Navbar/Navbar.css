@@ -7,11 +7,16 @@
 .container_nav{
     display: flex;
   justify-content: space-between;
-    background: #000000;
+    background: #f5e653  ;
 }
-.ul_nav {
-    display: flex;
-    justify-content: center;
+.mailbox{
+    font-size: 2rem; 
+}
+.div_nav {
+   margin-left: 2rem;
+   font-size: 40px;
+    padding: 1rem;
+  
     list-style: none;
     flex-grow: 1; /* Add flex-grow property */
   }

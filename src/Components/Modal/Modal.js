@@ -17,9 +17,10 @@ export default function Modal() {
   const fullscreenHandler = ()=>(
       navigate("/email")
   )
-  const modalCloseHandler = ()=>(
-    dispatch(setPortal())   
-  )
+  const modalCloseHandler = () => {
+    console.log(portal);
+    dispatch(setPortal());
+  };
   return (
     <>
       <div className='heading-email'>
