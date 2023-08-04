@@ -16,10 +16,12 @@ export default function App() {
   };
 
   const handleSendEmail =  () => {
+    const id = Math.random();
     const emailObj ={
       to,
       subject,
-      emailBody
+      emailBody,
+      id
     }
      
    

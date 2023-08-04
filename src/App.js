@@ -15,6 +15,8 @@ import { SetEmailData } from "./Components/Redux/Slices/StoreEmail";
 import Portal from "./Components/Modal/Portal";
 import Sidebar from "./Components/Sidebar/Sidebar";
 import PrivateRoutes from "./Components/PrivateRoutes";
+import SendEmail from "./Components/SendEmail/SendEmail";
+import EmailBody from "./Components/EmailBody/EmailBody";
 
 
 function App() {
@@ -67,9 +69,11 @@ function App() {
         <Routes>
           <Route path="/signup" element={<Signup />} />
           <Route path="/" element={<Home/>} />
+          <Route path="/emailbody" element={<EmailBody/>} />
           <Route path="/login" element={<Login />} />
           <Route path="/emailcompose" element={portal ? <PrivateRoutes component={Portal} alt={Login} /> :null}/>
           <Route path="/email" element={portal ? <PrivateRoutes component={EmailComposer} alt={Login} /> : null}/>
+          <Route path="/sendemail" element={<PrivateRoutes component={SendEmail} alt={Login} />}/>
 
 
 

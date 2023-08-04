@@ -1,0 +1,9 @@
+.send_mail_container{
+    display: flex;
+    justify-content: center;
+    align-items:center ;
+    max-width: 65%;
+}
+.send_mail_main_div{
+    margin-top: -39rem;
+}
