@@ -45,7 +45,44 @@ export const SetEmail = createAsyncThunk(
     }
   );
   
+  export const SetReadMail = createAsyncThunk(
+    "ReadMailSlice/SetReadMail",
+    async (emailObj, { rejectWithValue, getState }) => {
+      try {
+        const { to } = emailObj;
+        const state = getState();
+        const user = auth.currentUser;
 
+  
+        if (user) {
+          const docRef = doc(db, 'sendEmail', to);
+          const docSnap = await getDoc(docRef);
+  
+          let existingEmails = [];
+  
+          if (docSnap.exists()) {
+            existingEmails = docSnap.data()?.emails || [];
+          }
+  
+          // Find the index of the email to update in the existingEmails array
+          const indexToUpdate = existingEmails.findIndex((email) => email.id === emailObj.id);
+  
+          if (indexToUpdate !== -1) {
+            // Update the isRead property of the email object
+            existingEmails[indexToUpdate] = { ...emailObj };
+          }
+  
+          await setDoc(docRef, { emails: existingEmails });
+  
+          alert("Email marked as read!");
+        } else {
+          throw new Error("Something went wrong");
+        }
+      } catch (error) {
+        return rejectWithValue(error.message);
+      }
+    }
+  );
   
   
 
