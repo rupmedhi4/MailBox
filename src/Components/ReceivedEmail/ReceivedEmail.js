@@ -43,7 +43,7 @@ export default function ReceivedEmail() {
       <>
        <div key={email.id} className='send_mail_container' onClick={()=>readMailHandler(email.id)}>
         {
-          !email.readMail ?<span class="dot"></span> : null
+          email.readMail=== false ?<span class="dot"></span> : null
         }
           <span>{email.to}</span>
           <div className="div_span">

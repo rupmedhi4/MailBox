@@ -1,26 +1,32 @@
-
 .dot {
-    height: 25px;
-    width: 25px;
-    background-color: blue;
-    border-radius: 50%;
-    display: inline-block;
+    display: flex;
+  flex-direction: column;
+  margin-top: 20px;
   }
   .send_mail_container {
     display: flex;
-    justify-content: flex-start;
-    background: #c6d6d6;
-    border-radius: 5px;
-    transition: transform 0.2s; /* Add transition for zoom effect */
+  align-items: center;
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  border-radius: 8px;
+  
 }
 
 .send_mail_container:hover {
-    transform: scale(1.05); /* Zoom effect on hover */
-}
+    background-color: #f5f5f5;
+  }
+
+  .send_mail_container:hover .div_span {
+    color: #333; /* Adjust the text color on hover for better readability */
+  }
 
 .send_mail_main_div {
     margin-top: -39rem;
     margin-left: 18rem;
+ overflow-y: scroll;
+ overflow-x: hidden;
+ max-height: 40rem;
 }
 
 .email_body {
@@ -38,3 +44,26 @@
     display: flex;
     justify-content: flex-start;
 }
+.dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #ff5e3a;
+    margin-right: 10px;
+  }
+  .hr {
+    border: 0.5px solid #e5e5e5;
+    margin: 5px 0;
+  }
+  .send_mail_container span {
+    font-size: 16px;
+    font-weight: bold;
+    margin-right: 10px;
+  }
+  
+  .div_span {
+    flex: 1;
+    margin: 0 10px;
+    overflow: hidden;
+  }
