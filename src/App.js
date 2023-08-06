@@ -48,7 +48,7 @@ function App() {
   useEffect(()=>{
     if (user1) {
       const docRef = doc(db, "sendEmail", user.uid);
-      const ReceivedDocRef = doc(db, "sendEmail", user.email);
+      const ReceivedDocRef = doc(db, "receivedEmail", user.email);
       const unsubscribe = onSnapshot(docRef, (docSnap) => {
         if (docSnap.exists()) {
           dispatch(SetEmailData(docSnap.data().emails));   
@@ -64,7 +64,7 @@ function App() {
 
   useEffect(()=>{
     if (user1) {
-      const ReceivedDocRef = doc(db, "sendEmail", user.email);
+      const ReceivedDocRef = doc(db, "receivedEmail", user.email);
       const unsubscribe = onSnapshot(ReceivedDocRef, (docSnap) => {
         if (docSnap.exists()) {
           dispatch(SetReceivedEmailData(docSnap.data().emails));   

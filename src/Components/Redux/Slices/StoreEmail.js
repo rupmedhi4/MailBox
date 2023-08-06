@@ -12,27 +12,29 @@ export const SetEmail = createAsyncThunk(
         const { to } = emailObj;
   
         if (user) {
-          const docRef = doc(db, 'sendEmail', user.uid);
-          const docEmailRef = doc(db, 'sendEmail', to);
-          const docSnap = await getDoc(docRef);
-          const docEmailSnap = await getDoc(docEmailRef);
+          const docSendRef = doc(db, 'sendEmail', user.uid);
+          const docReceivedRef = doc(db, 'receivedEmail', to);
+          const SendDocSnap = await getDoc(docSendRef);
+          const ReceivedDocSnap = await getDoc(docReceivedRef);
   
-          let existingEmails = [];
-          let existingSendMails = [];
+          let ReceivedEmails = [];
+          let SendMails = [];
   
-          if (docSnap.exists()) {
-            existingEmails = docSnap.data()?.emails || [];
+          if (SendDocSnap.exists()) {
+            SendMails = SendDocSnap.data()?.emails || [];
+           
           }
   
-          if (docEmailSnap.exists()) {
-            existingSendMails = docEmailSnap.data()?.emails || [];
+          if (ReceivedDocSnap.exists()) {
+            ReceivedEmails = ReceivedDocSnap.data()?.emails || [];
+           
           }
   
-          const updatedEmails = [...existingEmails, emailObj];
-          const updatedSendEmails = [...existingSendMails, emailObj];
+          const userReceivedEmails = [...ReceivedEmails, emailObj];
+          const userSendEmails = [...SendMails, emailObj];
   
-          await setDoc(docRef, { emails: updatedSendEmails });
-          await setDoc(docEmailRef, { emails: updatedEmails });
+          await setDoc(docSendRef, { emails: userSendEmails });
+          await setDoc(docReceivedRef, { emails: userReceivedEmails });
   
           alert("Email sent successfully!");
   
@@ -55,7 +57,7 @@ export const SetEmail = createAsyncThunk(
 
   
         if (user) {
-          const docRef = doc(db, 'sendEmail', to);
+          const docRef = doc(db, 'receivedEmail', to);
           const docSnap = await getDoc(docRef);
   
           let existingEmails = [];
