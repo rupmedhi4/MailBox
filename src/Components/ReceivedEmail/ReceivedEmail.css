@@ -1,4 +1,12 @@
-.send_mail_container {
+
+.dot {
+    height: 25px;
+    width: 25px;
+    background-color: blue;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  .send_mail_container {
     display: flex;
     justify-content: flex-start;
     background: #c6d6d6;

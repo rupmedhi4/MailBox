@@ -11,12 +11,13 @@ import { auth, db } from "./Firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { doc, onSnapshot } from "firebase/firestore";
 import Modal from "./Components/Modal/Modal";
-import { SetEmailData } from "./Components/Redux/Slices/StoreEmail";
+import { SetEmailData, SetReceivedEmailData } from "./Components/Redux/Slices/StoreEmail";
 import Portal from "./Components/Modal/Portal";
 import Sidebar from "./Components/Sidebar/Sidebar";
 import PrivateRoutes from "./Components/PrivateRoutes";
 import SendEmail from "./Components/SendEmail/SendEmail";
 import EmailBody from "./Components/EmailBody/EmailBody";
+import ReceivedEmail from "./Components/ReceivedEmail/ReceivedEmail";
 
 
 function App() {
@@ -47,9 +48,26 @@ function App() {
   useEffect(()=>{
     if (user1) {
       const docRef = doc(db, "sendEmail", user.uid);
+      const ReceivedDocRef = doc(db, "sendEmail", user.email);
       const unsubscribe = onSnapshot(docRef, (docSnap) => {
         if (docSnap.exists()) {
-          dispatch(SetEmailData(docSnap.data().emails));
+          dispatch(SetEmailData(docSnap.data().emails));   
+        } else {
+          console.log("no doc");
+        }
+      });
+      return () => unsubscribe(); 
+    } else {
+      console.log("not user");
+    }
+  }, [dispatch, user])
+
+  useEffect(()=>{
+    if (user1) {
+      const ReceivedDocRef = doc(db, "sendEmail", user.email);
+      const unsubscribe = onSnapshot(ReceivedDocRef, (docSnap) => {
+        if (docSnap.exists()) {
+          dispatch(SetReceivedEmailData(docSnap.data().emails));   
           console.log(docSnap.data().emails)
         } else {
           console.log("no doc");
@@ -70,6 +88,7 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/" element={<Home/>} />
           <Route path="/emailbody" element={<EmailBody/>} />
+          <Route path="/receivedemails" element={<ReceivedEmail/>} />
           <Route path="/login" element={<Login />} />
           <Route path="/emailcompose" element={portal ? <PrivateRoutes component={Portal} alt={Login} /> :null}/>
           <Route path="/email" element={portal ? <PrivateRoutes component={EmailComposer} alt={Login} /> : null}/>

@@ -31,8 +31,8 @@ export const SetEmail = createAsyncThunk(
           const updatedEmails = [...existingEmails, emailObj];
           const updatedSendEmails = [...existingSendMails, emailObj];
   
-          await setDoc(docRef, { emails: updatedEmails });
-          await setDoc(docEmailRef, { emails: updatedSendEmails });
+          await setDoc(docRef, { emails: updatedSendEmails });
+          await setDoc(docEmailRef, { emails: updatedEmails });
   
           alert("Email sent successfully!");
   
@@ -45,6 +45,8 @@ export const SetEmail = createAsyncThunk(
     }
   );
   
+
+  
   
 
 const StoreEmail = createSlice({
@@ -52,7 +54,9 @@ const StoreEmail = createSlice({
     initialState: {
         user:null,
         sendEmail :[],
-        portal : false
+        recievedEmail : [],
+        portal : false,
+        readMail : false
     },
     reducers: {
         setUser: (state, action) => {
@@ -60,12 +64,24 @@ const StoreEmail = createSlice({
             state.user = currUser
           },
           SetEmailData: (state, action) => {
-
             state.sendEmail = action.payload;
             console.log(state.sendEmail);
           },
+          SetReceivedEmailData: (state, action) => {
+            state.recievedEmail = action.payload;
+            //console.log(state.recievedEmail);
+          },
           setPortal: (state, action)=> {
             state.portal = !state.portal;
+          },
+          setReadMail: (state, action)=> {
+            const id = action.payload;
+           const Obj =  state.recievedEmail.map((mailObj)=>{
+              if(mailObj.id === id ){
+                return mailObj
+              }
+          })
+          console.log(Obj)
           }
         
     },
@@ -84,5 +100,5 @@ const StoreEmail = createSlice({
     },
 });
 
-export const { setUser,SetEmailData, setPortal } = StoreEmail.actions;
+export const { setUser,SetEmailData, setPortal, SetReceivedEmailData,setReadMail } = StoreEmail.actions;
 export default StoreEmail.reducer;

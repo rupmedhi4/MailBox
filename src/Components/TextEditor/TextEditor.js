@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import JoditEditor from "jodit-react";
 import "./TextEditor.css";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { SetEmail, SetEmailData, addEmail } from "../Redux/Slices/StoreEmail";
 
 export default function App() {
@@ -10,6 +10,8 @@ export default function App() {
   const [emailBody, setEmailBody] = useState("");
   const [content, setContent] = useState("");
   const dispatch = useDispatch();
+  const ReadEmails = useSelector(state => state.StoreEmail.readMail);
+
 
   const handleEditorChange = (newContent) => {
     setContent(newContent);
@@ -21,10 +23,9 @@ export default function App() {
       to,
       subject,
       emailBody,
-      id
-    }
-     
-   
+      id,
+      ReadEmails
+    }   
     dispatch(SetEmail(emailObj))
   };
 
@@ -45,12 +46,9 @@ export default function App() {
         <textarea type="text" placeholder="Write your email" className="input_text textarea" onChange={(e) => { setEmailBody(e.target.value) }} value={emailBody} />
       </div>
 
-     
-      <JoditEditor value={content} tabIndex={1} onChange={newContent => setContent(newContent)} className="texteditor"/>
+        <JoditEditor value={content} tabIndex={1} onChange={newContent => setContent(newContent)} className="texteditor"/>
 
       <button className="send-button" onClick={handleSendEmail}> Send </button>
-
-    
 
     </div>
   );

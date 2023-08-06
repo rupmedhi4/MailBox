@@ -14,12 +14,11 @@ export default function Sidebar() {
      
        }
     const emailShowHandler =  ()=>{
-        navigate("/")  
+        navigate("/receivedemails")  
      
        }
     const sendmailHandler =  ()=>{
         navigate("/emailbody")  
-     
        }
 
   return (

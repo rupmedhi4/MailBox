@@ -17,10 +17,17 @@ export default function EmailBody() {
   return (
     <div className='send_mail_main_div'>
       {emails.map((email) => (
-        <div key={email.id} className='send_mail_container'>
-          <span>{email.to}</span>
-          <span>{getFirst10Words(email.emailBody)}</span>
+        <>
+         <div key={email.id} className='send_mail_container'>
+            <span>{email.to}</span>
+            <div className="div_span">
+                <span>{getFirst10Words(email.emailBody)}</span>    
+            </div>
+              
         </div>
+        <br />
+        </>
+       
       ))}
     </div>
   );
