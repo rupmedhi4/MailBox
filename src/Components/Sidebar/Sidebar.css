@@ -2,7 +2,7 @@
     background: yellow;
     max-width: 20%;
     height: 100vh; /* Set height to 100% of viewport height */
-    border: 1px solid whitesmoke;
+    
     display: flex;
     flex-direction: column; 
     

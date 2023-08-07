@@ -1,10 +1,9 @@
-import React from 'react'
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import './ReceivedEmail.css'
-import { SetReadMail, setReadMail, setUserClickMail } from '../Redux/Slices/StoreEmail';
+import './ReceivedEmail.css';
+import { SetReadMail, deleteMail, setReadMail, setUserClickMail } from '../Redux/Slices/StoreEmail';
 import { useNavigate } from 'react-router-dom';
 import { MdDelete } from 'react-icons/md'; 
-
 
 export default function ReceivedEmail() {
 
@@ -20,6 +19,7 @@ export default function ReceivedEmail() {
       return text;
     }
   };
+
   const readMailHandler = (id) => {
     recievedEmail.map((mail) => {
       if (mail.id === id) {
@@ -32,31 +32,39 @@ export default function ReceivedEmail() {
         dispatch(SetReadMail(updatedMail));
         dispatch(setUserClickMail(updatedMail));
         navigate("/reademail")
-
-
       }
-
-
     })
+  }
+
+  const deleteHandler = (id) => {
+    recievedEmail.map((mail) => {
+      if (mail.id === id) {
+        dispatch(deleteMail(mail))
+       
+      }
+    })
+  
   }
 
   return (
     <div className='send_mail_main_div'>
       {recievedEmail.map((email) => (
-        < >
-          <div className='send_mail_container' onClick={() => readMailHandler(email.id)} key={email.id}>
+        <div key={email.id} className='main__div'>
+          <div className='send_mail_container' onClick={() => readMailHandler(email.id)}>
             {email.ReadEmails === false ? <span className="dot"></span> : null}
             <span>{email.to}</span>
             <div className="div_span">
               <span>{getFirst10Words(email.emailBody)}</span>
             </div>
-             <MdDelete className='button'/>
-
+          </div> 
+          <div className="delete_button_container">
+            <button className='button' onClick={() => deleteHandler(email.id)}>
+              <MdDelete />
+            </button>
           </div>
           <br />
-        </>
+        </div>
       ))}
     </div>
-
   )
 }
