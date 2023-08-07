@@ -18,6 +18,7 @@ import PrivateRoutes from "./Components/PrivateRoutes";
 import SendEmail from "./Components/SendEmail/SendEmail";
 import EmailBody from "./Components/EmailBody/EmailBody";
 import ReceivedEmail from "./Components/ReceivedEmail/ReceivedEmail";
+import ReadEmail from "./Components/ReadEmail/ReadEmail";
 
 
 function App() {
@@ -93,6 +94,7 @@ function App() {
           <Route path="/emailcompose" element={portal ? <PrivateRoutes component={Portal} alt={Login} /> :null}/>
           <Route path="/email" element={portal ? <PrivateRoutes component={EmailComposer} alt={Login} /> : null}/>
           <Route path="/sendemail" element={<PrivateRoutes component={SendEmail} alt={Login} />}/>
+          <Route path="/reademail" element={<PrivateRoutes component={ReadEmail} alt={Login} />}/>
 
 
 

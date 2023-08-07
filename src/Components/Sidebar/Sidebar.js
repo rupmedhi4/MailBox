@@ -22,7 +22,7 @@ export default function Sidebar() {
     }, 0);
 
     setUnread(newUnread);
-  }, [recievedEmail]);
+  }, [recievedEmail]);  
 
   const modalHandler = () => {
     dispatch(setPortal());

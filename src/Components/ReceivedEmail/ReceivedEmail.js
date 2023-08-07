@@ -1,57 +1,62 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import './ReceivedEmail.css'
-import { SetReadMail, setReadMail } from '../Redux/Slices/StoreEmail';
+import { SetReadMail, setReadMail, setUserClickMail } from '../Redux/Slices/StoreEmail';
+import { useNavigate } from 'react-router-dom';
+import { MdDelete } from 'react-icons/md'; 
+
 
 export default function ReceivedEmail() {
 
-    const recievedEmail = useSelector(state => state.StoreEmail.recievedEmail);
-    const dispatch = useDispatch();
+  const recievedEmail = useSelector(state => state.StoreEmail.recievedEmail);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-    const getFirst10Words = (text) => {
-        const words = text.split(' ');
-        if (words.length > 10) {
-          return words.slice(0, 10).join(' ') + '...';
-        } else {
-          return text;
-        }
-      };
-    const readMailHandler = (id) => {
-      recievedEmail.map((mail)=>{
-        if (mail.id === id) {
-          const updatedMail = {
-            ...mail,
-            ReadEmails: true,
-          };
-    
-          // Dispatch the updated mail object
-          dispatch(SetReadMail(updatedMail));
-    
-          console.log(updatedMail);
-      }
-       
-        
-      })
+  const getFirst10Words = (text) => {
+    const words = text.split(' ');
+    if (words.length > 10) {
+      return words.slice(0, 10).join(' ') + '...';
+    } else {
+      return text;
     }
-    
-  
-    
+  };
+  const readMailHandler = (id) => {
+    recievedEmail.map((mail) => {
+      if (mail.id === id) {
+        const updatedMail = {
+          ...mail,
+          ReadEmails: true,
+        };
+
+        // Dispatch the updated mail object
+        dispatch(SetReadMail(updatedMail));
+        dispatch(setUserClickMail(updatedMail));
+        navigate("/reademail")
+
+
+      }
+
+
+    })
+  }
 
   return (
     <div className='send_mail_main_div'>
-  {recievedEmail.map((email) => (
-    < >
-      <div className='send_mail_container' onClick={() => readMailHandler(email.id)} key={email.id}>
-        {email.ReadEmails === false ? <span className="dot"></span> :null}
-        <span>{email.to}</span>
-        <div className="div_span">
-          <span>{getFirst10Words(email.emailBody)}</span>    
-        </div>
-      </div>
-      <br />
-    </>
-  ))}
-</div>
+      {recievedEmail.map((email) => (
+        < >
+          <div className='send_mail_container' onClick={() => readMailHandler(email.id)} key={email.id}>
+            {email.ReadEmails === false ? <span className="dot"></span> : null}
+            <span>{email.to}</span>
+            <div className="div_span">
+              <span>{getFirst10Words(email.emailBody)}</span>
+            </div>
+             <MdDelete className='button'/>
+
+          </div>
+          <br />
+        </>
+      ))}
+    </div>
 
   )
 }

@@ -95,7 +95,8 @@ const StoreEmail = createSlice({
         sendEmail :[],
         recievedEmail : [],
         portal : false,
-        readMail : false
+        readMail : false,
+        userClickMail :[]
     },
     reducers: {
         setUser: (state, action) => {
@@ -121,7 +122,10 @@ const StoreEmail = createSlice({
               }
           })
           console.log(Obj)
-          }
+          },
+          setUserClickMail: (state, action)=> {
+            state.userClickMail = action.payload;
+          },
         
     },
 
@@ -139,5 +143,5 @@ const StoreEmail = createSlice({
     },
 });
 
-export const { setUser,SetEmailData, setPortal, SetReceivedEmailData,setReadMail } = StoreEmail.actions;
+export const { setUser,SetEmailData,setUserClickMail, setPortal, SetReceivedEmailData,setReadMail } = StoreEmail.actions;
 export default StoreEmail.reducer;
