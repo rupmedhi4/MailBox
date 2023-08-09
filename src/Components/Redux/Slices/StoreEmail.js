@@ -121,6 +121,42 @@ export const SetEmail = createAsyncThunk(
        }
      }
   );
+
+
+  export const deleteSendMail = createAsyncThunk(
+    "deleteMailSlices/deleteMail",
+    async (emailObj, { rejectWithValue, getState }) => {
+      try {
+        const state = getState();
+        const user = auth.currentUser;
+      
+  
+        if (user) {
+          const docRef = doc(db, 'sendEmail', user.uid);
+          const docSnap = await getDoc(docRef);
+  
+          let existingEmails = [];
+  
+          if (docSnap.exists()) {
+            existingEmails = docSnap.data()?.emails || [];
+          }
+  
+          // Find the  email to delete in the existingEmails array
+          const filterToDelete = existingEmails.filter((email) => email.id != emailObj.id);
+          console.log(filterToDelete);
+  
+        
+          await setDoc(docRef, { emails: filterToDelete });
+  
+          alert("email delete successfully");
+        } else {
+          throw new Error("Something went wrong");
+         }
+       } catch (error) {
+        return rejectWithValue(error.message);
+       }
+     }
+  );
   
 
 const StoreEmail = createSlice({
@@ -161,6 +197,10 @@ const StoreEmail = createSlice({
           setUserClickMail: (state, action)=> {
             state.userClickMail = action.payload;
           },
+          setEmptyArr:(state, action) =>{
+              state.recievedEmail = []
+              state.sendEmail =[]
+          }
         
     },
 
@@ -178,5 +218,5 @@ const StoreEmail = createSlice({
     },
 });
 
-export const { setUser,SetEmailData,setUserClickMail, setPortal, SetReceivedEmailData,setReadMail } = StoreEmail.actions;
+export const { setEmptyArr,setUser,SetEmailData,setUserClickMail, setPortal, SetReceivedEmailData,setReadMail } = StoreEmail.actions;
 export default StoreEmail.reducer;

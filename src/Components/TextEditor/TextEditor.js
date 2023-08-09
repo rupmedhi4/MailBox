@@ -3,6 +3,7 @@ import JoditEditor from "jodit-react";
 import "./TextEditor.css";
 import { useDispatch, useSelector } from "react-redux";
 import { SetEmail, SetEmailData, addEmail } from "../Redux/Slices/StoreEmail";
+import { auth } from "../../Firebase";
 
 export default function App() {
   const [to, setTo] = useState("");
@@ -11,6 +12,7 @@ export default function App() {
   const [content, setContent] = useState("");
   const dispatch = useDispatch();
   const ReadEmails = useSelector(state => state.StoreEmail.readMail);
+  const user = auth.currentUser;
 
 
   const handleEditorChange = (newContent) => {
@@ -19,13 +21,16 @@ export default function App() {
 
   const handleSendEmail =  () => {
     const id = Math.random();
+    const from = user.email;
     const emailObj ={
       to,
       subject,
       emailBody,
       id,
-      ReadEmails
+      ReadEmails,
+      from
     }   
+   
     dispatch(SetEmail(emailObj))
   };
 

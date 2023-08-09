@@ -9,7 +9,7 @@ export default function ReadEmail() {
     <div className="container">
       <div className="email">
         <h1 className="subject">{userClickMail.subject}</h1>
-        <p className="to"> {userClickMail.to}</p>
+        <p className="to"> {userClickMail.from}</p>
         <p className="body">{userClickMail.emailBody}</p>
       </div>
     </div>

@@ -24,7 +24,7 @@ import ReadEmail from "./Components/ReadEmail/ReadEmail";
 function App() {
   const dispatch = useDispatch();
   const [user1, setUser1] = useState(null);
- 
+
 
   const user = auth.currentUser
   const emails = useSelector(state => state.StoreEmail.SendEmail);
@@ -35,69 +35,69 @@ function App() {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser1(user);
-          console.log(user1); // Move this line here to log the user1 state after it's set
-          console.log(emails); // Move this line here to log the user1 state after it's set
+        console.log(user1); // Move this line here to log the user1 state after it's set
+        console.log(emails); // Move this line here to log the user1 state after it's set
       } else {
         setUser1(null)
       }
     });
-  
+
     return () => unsubscribe();
   }, [user]);
 
 
-  useEffect(()=>{
+  useEffect(() => {
     if (user1) {
       const docRef = doc(db, "sendEmail", user.uid);
       const ReceivedDocRef = doc(db, "receivedEmail", user.email);
       const unsubscribe = onSnapshot(docRef, (docSnap) => {
         if (docSnap.exists()) {
-          dispatch(SetEmailData(docSnap.data().emails));   
+          dispatch(SetEmailData(docSnap.data().emails));
+          console.log(user)
         } else {
           console.log("no doc");
         }
       });
-      return () => unsubscribe(); 
+      return () => unsubscribe();
     } else {
       console.log("not user");
     }
   }, [dispatch, user])
 
-  useEffect(()=>{
+  useEffect(() => {
     if (user1) {
       const ReceivedDocRef = doc(db, "receivedEmail", user.email);
       const unsubscribe = onSnapshot(ReceivedDocRef, (docSnap) => {
         if (docSnap.exists()) {
-          dispatch(SetReceivedEmailData(docSnap.data().emails));   
+          dispatch(SetReceivedEmailData(docSnap.data().emails));
           console.log(docSnap.data().emails)
         } else {
           console.log("no doc");
         }
       });
-      return () => unsubscribe(); 
+      return () => unsubscribe();
     } else {
       console.log("not user");
     }
   }, [dispatch, user])
 
+
+
   return (
     <div>
       <BrowserRouter>
         <Navbar />
-        <Sidebar/> 
+        <Sidebar />
         <Routes>
           <Route path="/signup" element={<Signup />} />
-          <Route path="/" element={<Home/>} />
-          <Route path="/emailbody" element={<EmailBody/>} />
-          <Route path="/receivedemails" element={<ReceivedEmail/>} />
           <Route path="/login" element={<Login />} />
-          <Route path="/emailcompose" element={portal ? <PrivateRoutes component={Portal} alt={Login} /> :null}/>
-          <Route path="/email" element={portal ? <PrivateRoutes component={EmailComposer} alt={Login} /> : null}/>
-          <Route path="/sendemail" element={<PrivateRoutes component={SendEmail} alt={Login} />}/>
-          <Route path="/reademail" element={<PrivateRoutes component={ReadEmail} alt={Login} />}/>
-
-
-
+          <Route path="/" element={<Home />} />
+          <Route path="/emailcompose" element={portal ? <PrivateRoutes component={Portal} alt={Login} /> : null} />
+          <Route path="/email" element={portal ? <PrivateRoutes component={EmailComposer} alt={Login} /> : null} />
+          <Route path="/sendemail" element={<PrivateRoutes component={SendEmail} alt={Login} />} />
+          <Route path="/reademail" element={<PrivateRoutes component={ReadEmail} alt={Login} />} />
+          <Route path="/receivedemails" element={<PrivateRoutes component={ReceivedEmail} alt={Login} />} />
+          <Route path="/emailbody" element={<PrivateRoutes component={EmailBody} alt={Login} />} />
         </Routes>
       </BrowserRouter>
     </div>

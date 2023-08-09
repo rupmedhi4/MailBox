@@ -44,15 +44,13 @@ export default function Sidebar() {
             Compose Email
           </Link>
         </button>
-        <div className='mail-inbox' style={{ cursor: "pointer" }}>
-          <span className='inbox' onClick={emailShowHandler}>Inbox {unread}</span>
+        <div className='mail-inbox' style={{ cursor: "pointer" }} onClick={emailShowHandler}>
+          <span className='inbox' >Inbox {unread}</span>
         </div>
-        <div className='mail-inbox' style={{ cursor: "pointer" }}>
-          <span className='inbox' onClick={sendmailHandler}>Send Mail</span>
+        <div className='mail-inbox' style={{ cursor: "pointer" }} onClick={sendmailHandler}>
+          <span className='inbox' >Send Mail</span>
         </div>
-        <div className='mail-inbox' style={{ cursor: "pointer" }}>
-          <span className='inbox'>Unread</span>
-        </div>
+       
       </div>
     </>
   );

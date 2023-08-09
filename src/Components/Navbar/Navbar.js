@@ -5,15 +5,17 @@ import { Link, useNavigate } from 'react-router-dom'
 import { auth } from '../../Firebase';
 import { signOut } from 'firebase/auth';
 import { useDispatch, useSelector } from 'react-redux';
-import { setPortal } from '../Redux/Slices/StoreEmail';
+import { setEmptyArr, setPortal } from '../Redux/Slices/StoreEmail';
 
 
 export default function Navbar({setSidebar,sidebar}) {
     const user = auth.currentUser;
     const portal = useSelector(state => state.StoreEmail.portal);
+    const recievedEmail = useSelector(state => state.StoreEmail.recievedEmailrecievedEmail);
+    const sendEmail = useSelector(state => state.StoreEmail.sendEmail);
     const dispatch = useDispatch();
 
-
+ 
 
     const navigate = useNavigate()
     const loginhandler = () => {
@@ -25,8 +27,9 @@ export default function Navbar({setSidebar,sidebar}) {
     const logoutHandler = async () => {
         try {
             await signOut(auth)
-            console.log(user)
-            alert("signout")
+             navigate("/login")
+             dispatch(setEmptyArr())
+             alert("signout")
         } catch (err) {
             alert(err)
         }
@@ -44,11 +47,16 @@ export default function Navbar({setSidebar,sidebar}) {
             </div>
             <ul className="cartBtn_main" >
                 {
-                    user ? <button onClick={logoutHandler} style={{ color: "white", background: "black", cursor: "pointer", marginRight:"0.5rem" }} className="cartBtn"  >logout</button>
+                   
+                       user ? 
+                    <>
+                       <button onClick={logoutHandler} style={{ color: "white", background: "black", cursor: "pointer", marginRight:"0.5rem" }} className="cartBtn"  >logout</button>
+                       <span>{user.email}</span>
+                    </>
                         : <>
                             <button onClick={loginhandler} style={{ color: "white", background: "black", cursor: "pointer",marginRight:"0.5rem" }} className="cartBtn" >Login</button>
                             <button onClick={signuphandler} style={{ color: "white", background: "black", cursor: "pointer",marginRight:"0.5rem" }} className="cartBtn"  >Signup</button>
-                        </>
+                          </>
                 }
 
 

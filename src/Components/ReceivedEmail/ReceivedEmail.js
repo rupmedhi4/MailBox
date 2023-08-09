@@ -48,11 +48,12 @@ export default function ReceivedEmail() {
 
   return (
     <div className='send_mail_main_div'>
-      {recievedEmail.map((email) => (
+      {recievedEmail.length > 0 ? 
+      recievedEmail.map((email) => (
         <div key={email.id} className='main__div'>
           <div className='send_mail_container' onClick={() => readMailHandler(email.id)}>
             {email.ReadEmails === false ? <span className="dot"></span> : null}
-            <span>{email.to}</span>
+            <span>{email.from}</span>
             <div className="div_span">
               <span>{getFirst10Words(email.emailBody)}</span>
             </div>
@@ -64,7 +65,8 @@ export default function ReceivedEmail() {
           </div>
           <br />
         </div>
-      ))}
+      )): <h2>No Mails</h2>
+      }
     </div>
   )
 }

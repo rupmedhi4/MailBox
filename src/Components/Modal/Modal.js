@@ -20,6 +20,7 @@ export default function Modal() {
   const modalCloseHandler = () => {
     console.log(portal);
     dispatch(setPortal());
+    navigate("/receivedemails")
   };
   return (
     <>

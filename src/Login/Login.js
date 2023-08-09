@@ -14,7 +14,7 @@ export default function Login() {
     try {
       await signInWithEmailAndPassword(auth, email, password);
       alert('Login Successful');
-      // navigate("/")
+       navigate("/receivedemails")
     } catch (err) {
       alert(err)
     }
